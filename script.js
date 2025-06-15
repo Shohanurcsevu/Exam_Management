@@ -124,6 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadPage('subject.html');
             } else if (navId === 'nav-lesson') {
                 loadPage('lesson.html');
+            }else if (navId === 'nav-topics') { // <<< ADD THIS BLOCK
+                loadPage('topics.html');
             }
             setActiveLink(this);
         });

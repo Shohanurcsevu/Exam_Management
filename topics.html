@@ -1,0 +1,110 @@
+<link rel="stylesheet" href="topics.css">
+<div class="topics-page">
+    <div class="page-header">
+        <h2>Topics</h2>
+        <button class="add-topic-btn">
+            <span class="material-icons">add</span>
+            Add Topic
+        </button>
+    </div>
+
+    <div class="table-controls">
+        <div class="control-group">
+            <label for="subjectFilter">Filter by Subject:</label>
+            <select id="subjectFilter"><option value="">All Subjects</option></select>
+        </div>
+        <div class="control-group">
+            <label for="lessonFilter">Filter by Lesson:</label>
+            <select id="lessonFilter"><option value="">All Lessons</option></select>
+        </div>
+        <div class="control-group">
+            <label for="searchTopics">Search:</label>
+            <input type="text" id="searchTopics" placeholder="Search by topic name...">
+        </div>
+    </div>
+
+    <div class="topic-content">
+        <table class="topics-table responsive-table">
+            <thead>
+                <tr>
+                    <th>Topic Name</th>
+                    <th>Lesson</th>
+                    <th>Subject</th>
+                    <th>Page Range</th>
+                    <th>Exams</th>
+                    <th>Past Qs</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="topicsTableBody"></tbody>
+        </table>
+    </div>
+
+    <div id="pagination-controls" class="pagination-container"></div>
+</div>
+
+<div id="addTopicModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Add New Topic</h2>
+            <span class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="addTopicForm">
+                <input type="hidden" id="topicId">
+                <div class="form-group">
+                    <label for="subjectSelect">Subject</label>
+                    <select id="subjectSelect" required><option value="" disabled selected>Select a subject first</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="lessonSelect">Lesson</label>
+                    <select id="lessonSelect" required disabled><option value="" disabled selected>Select a lesson</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="topicName">Topic Name</label>
+                    <input type="text" id="topicName" required>
+                </div>
+                <div class="form-group">
+                    <label for="startPage">Start Page</label>
+                    <input type="number" id="startPage" required>
+                </div>
+                <div class="form-group">
+                    <label for="endPage">End Page</label>
+                    <input type="number" id="endPage" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalExams">Total Exams</label>
+                    <input type="number" id="totalExams" required>
+                </div>
+                <div class="form-group">
+                    <label for="pastQuestions">Past Questions</label>
+                    <input type="number" id="pastQuestions" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="save-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content delete-modal-content">
+        <div class="modal-header">
+            <h2>Confirm Deletion</h2>
+            <span class="close-delete-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="warning-message">
+                <span class="material-icons warning-icon">warning</span>
+                <p>Are you sure you want to delete this topic? This action cannot be undone.</p>
+            </div>
+            <div class="confirm-actions">
+                <button id="cancelDeleteBtn" class="action-btn-cancel">Cancel</button>
+                <button id="confirmDeleteBtn" class="action-btn-delete">Confirm Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="topics.js"></script>

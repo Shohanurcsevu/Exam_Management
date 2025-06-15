@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="lesson.css">
+
+<div class="lesson-page">
+    <div class="page-header">
+        <h2>Lessons</h2>
+        <button class="add-lesson-btn">
+            <span class="material-icons">add</span>
+            Add Lesson
+        </button>
+    </div>
+
+    <div class="table-controls">
+        <div class="control-group">
+            <label for="subjectFilter">Filter by Subject:</label>
+            <select id="subjectFilter">
+                <option value="">All Subjects</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="searchLessons">Search:</label>
+            <input type="text" id="searchLessons" placeholder="Search by lesson name...">
+        </div>
+    </div>
+
+    <div class="lesson-content">
+        <table class="lessons-table">
+            <thead>
+                <tr>
+                    <th>Lesson Name</th>
+                    <th>Lesson No.</th>
+                    <th>Subject</th>
+                    <th>Page Range</th>
+                    <th>Past Questions</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="lessonsTableBody"></tbody>
+        </table>
+    </div>
+
+    <div id="pagination-controls" class="pagination-container"></div>
+</div>
+
+<div id="addLessonModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Add New Lesson</h2>
+            <span class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="addLessonForm">
+                <input type="hidden" id="lessonId">
+                <div class="form-group">
+                    <label for="subjectSelect">Subject</label>
+                    <select id="subjectSelect" required>
+                        <option value="" disabled selected>Select a subject</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lessonName">Lesson Name</label>
+                    <input type="text" id="lessonName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lessonNumber">Lesson Number</label>
+                    <input type="number" id="lessonNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="startPage">Start Page Number</label>
+                    <input type="number" id="startPage" required>
+                </div>
+                <div class="form-group">
+                    <label for="endPage">End Page Number</label>
+                    <input type="number" id="endPage" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalPastQuestions">Total Past Questions</label>
+                    <input type="number" id="totalPastQuestions" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="save-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content delete-modal-content">
+        <div class="modal-header">
+            <h2>Confirm Deletion</h2>
+            <span class="close-delete-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="warning-message">
+                <span class="material-icons warning-icon">warning</span>
+                <p>Are you sure you want to delete this lesson? This action cannot be undone.</p>
+            </div>
+            <div class="confirm-actions">
+                <button id="cancelDeleteBtn" class="action-btn-cancel">Cancel</button>
+                <button id="confirmDeleteBtn" class="action-btn-delete">Confirm Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="lesson.js"></script>

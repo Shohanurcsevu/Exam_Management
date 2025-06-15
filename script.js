@@ -125,6 +125,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fetchDashboardStats(); // Fetch stats when returning to dashboard
             } else if (navId === 'nav-subject') {
                 loadPage('subject.html');
+            } else if (navId === 'nav-lesson') { // <<< ADD THIS BLOCK
+                loadPage('lesson.html');
             }
             
             setActiveLink(this);

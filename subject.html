@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="subject.css">
+
+<div class="subject-page">
+    <div class="page-header">
+        <h2>Subjects</h2>
+        <button class="add-subject-btn">
+            <span class="material-icons">add</span>
+            Add Subject
+        </button>
+    </div>
+    <div class="subject-content">
+        <table class="subjects-table">
+            <thead>
+                <tr>
+                    <th>Subject Name</th>
+                    <th>Book Name</th>
+                    <th>Total Pages</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="subjectsTableBody">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="addSubjectModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Add New Subject</h2>
+            <span class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="addSubjectForm">
+                <input type="hidden" id="subjectId">
+                <div class="form-group">
+                    <label for="subjectName">Subject Name</label>
+                    <input type="text" id="subjectName" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookName">Book Name</label>
+                    <input type="text" id="bookName" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalPages">Total Pages</label>
+                    <input type="number" id="totalPages" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="General">General</option>
+                        <option value="Science">Science</option>
+                        <option value="IT">IT</option>
+                        <option value="Bank">Bank</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="save-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content delete-modal-content">
+        <div class="modal-header">
+            <h2>Confirm Deletion</h2>
+            <span class="close-delete-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="warning-message">
+                <span class="material-icons warning-icon">warning</span>
+                <p>Are you sure you want to delete this subject? This action cannot be undone.</p>
+            </div>
+            <div class="confirm-actions">
+                <button id="cancelDeleteBtn" class="action-btn-cancel">Cancel</button>
+                <button id="confirmDeleteBtn" class="action-btn-delete">Confirm Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="subject.js"></script>

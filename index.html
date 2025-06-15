@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Taking Management Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active" id="nav-dashboard"><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
+                    <li id="nav-subject"><a href="#"><span class="material-icons">subject</span> Subject</a></li>
+                    <li><a href="#"><span class="material-icons">library_books</span> Lesson</a></li>
+                    <li><a href="#"><span class="material-icons">topic</span> Topics</a></li>
+                    <li><a href="#"><span class="material-icons">school</span> Exams</a></li>
+                    <li><a href="#"><span class="material-icons">people</span> Students</a></li>
+                    <li><a href="#"><span class="material-icons">bar_chart</span> Results</a></li>
+                    <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="header-menu-toggle">
+                    <span class="material-icons">menu</span>
+                </div>
+                <div class="header-user">
+                    <span class="material-icons">notifications</span>
+                </div>
+            </header>
+
+            <section class="content" id="main-content-area">
+                <div class="content-header">
+                    <div class="header-search">
+                        <span class="material-icons search-icon">search</span>
+                        <input type="text" id="searchInput" placeholder="Search..." class="search-input">
+                        <span class="material-icons clear-icon" id="clearSearch">close</span>
+                        <kbd class="shortcut-hint">/</kbd>
+                    </div>
+                </div>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-icon"><span class="material-icons">class</span></div>
+                        <div class="card-info">
+                            <h3 id="total-subjects">0</h3>
+                            <p>Total Subjects</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><span class="material-icons">visibility</span></div>
+                        <div class="card-info">
+                            <h3 id="total-exams">0</h3>
+                            <p>Total Exams</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><span class="material-icons">check_circle</span></div>
+                        <div class="card-info">
+                            <h3 id="active-exams">0</h3>
+                            <p>Active Exams</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><span class="material-icons">group_add</span></div>
+                        <div class="card-info">
+                            <h3 id="students-enrolled">0</h3>
+                            <p>Students Enrolled</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <table id="activity-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Exam Name</th>
+                                <th>Status</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+</html>

@@ -12,12 +12,14 @@ $response = [
 
 try {
     // --- Get Total Subjects Count ---
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM subjects");
-    $total_subjects = $stmt->fetchColumn(); // Fetches the first column of the first row
+    $stmt_subjects = $pdo->query("SELECT COUNT(*) as total FROM subjects");
+    $total_subjects = $stmt_subjects->fetchColumn();
 
+    // --- Get Total Lessons Count ---
+    $stmt_lessons = $pdo->query("SELECT COUNT(*) as total FROM lessons");
+    $total_lessons = $stmt_lessons->fetchColumn();
+    
     // --- You can add more queries here for other stats in the future ---
-    // For now, we'll use placeholder values for other cards
-    $total_exams = 0;
     $active_exams = 0;
     $students_enrolled = 0;
     
@@ -25,8 +27,8 @@ try {
     $response['status'] = 'success';
     $response['message'] = 'Dashboard data fetched successfully.';
     $response['data'] = [
-        'total_subjects' => (int)$total_subjects, // Cast to integer
-        'total_exams' => $total_exams,
+        'total_subjects' => (int)$total_subjects,
+        'total_lessons' => (int)$total_lessons, // Added lesson count
         'active_exams' => $active_exams,
         'students_enrolled' => $students_enrolled
     ];

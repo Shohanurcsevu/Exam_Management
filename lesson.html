@@ -14,7 +14,7 @@
             <label for="subjectFilter">Filter by Subject:</label>
             <select id="subjectFilter">
                 <option value="">All Subjects</option>
-            </select>
+                </select>
         </div>
         <div class="control-group">
             <label for="searchLessons">Search:</label>
@@ -31,10 +31,11 @@
                     <th>Subject</th>
                     <th>Page Range</th>
                     <th>Past Questions</th>
-                    <th>Actions</th>
+                    <th>Total Topics</th> <th>Actions</th>
                 </tr>
             </thead>
-            <tbody id="lessonsTableBody"></tbody>
+            <tbody id="lessonsTableBody">
+                </tbody>
         </table>
     </div>
 
@@ -54,7 +55,7 @@
                     <label for="subjectSelect">Subject</label>
                     <select id="subjectSelect" required>
                         <option value="" disabled selected>Select a subject</option>
-                    </select>
+                        </select>
                 </div>
                 <div class="form-group">
                     <label for="lessonName">Lesson Name</label>
@@ -75,6 +76,10 @@
                 <div class="form-group">
                     <label for="totalPastQuestions">Total Past Questions</label>
                     <input type="number" id="totalPastQuestions" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalTopics">Total Topics</label>
+                    <input type="number" id="totalTopics" required>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="save-btn">Save</button>

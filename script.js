@@ -39,14 +39,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await response.json();
 
             if (result.status === 'success' && result.data) {
-                // Update the text content of the card elements
+                // Get all card elements by their IDs
                 const totalSubjectsEl = document.getElementById('total-subjects');
-                const totalExamsEl = document.getElementById('total-exams');
+                const totalLessonsEl = document.getElementById('total-lessons'); // New element
                 const activeExamsEl = document.getElementById('active-exams');
                 const studentsEnrolledEl = document.getElementById('students-enrolled');
 
+                // Update the text content of the card elements
                 if (totalSubjectsEl) totalSubjectsEl.textContent = result.data.total_subjects;
-                if (totalExamsEl) totalExamsEl.textContent = result.data.total_exams;
+                if (totalLessonsEl) totalLessonsEl.textContent = result.data.total_lessons; // Update lessons card
                 if (activeExamsEl) activeExamsEl.textContent = result.data.active_exams;
                 if (studentsEnrolledEl) studentsEnrolledEl.textContent = result.data.students_enrolled;
             }
@@ -90,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
             for (const script of scripts) {
                 const newScript = document.createElement('script');
                 if (script.src) {
-                    // For external scripts, we need to wait for them to load
                     await new Promise((resolve, reject) => {
                         newScript.src = script.src;
                         newScript.onload = resolve;
@@ -98,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.body.appendChild(newScript).parentNode.removeChild(newScript);
                     });
                 } else {
-                    // For inline scripts
                     eval(script.innerHTML);
                 }
             }
@@ -125,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fetchDashboardStats(); // Fetch stats when returning to dashboard
             } else if (navId === 'nav-subject') {
                 loadPage('subject.html');
-            } else if (navId === 'nav-lesson') { // <<< ADD THIS BLOCK
+            } else if (navId === 'nav-lesson') {
                 loadPage('lesson.html');
             }
             

@@ -1,19 +1,14 @@
-now lets create lesson html , lesson cs lesson js and lesson api 
+now on click topic menu from navigation opn topics page 
 
+in topic page  right side main area at the top right side corner there will be button name 
 
+Add Topics 
 
-on clik lesson menu  in right side area open lesson page 
+on click Add topics open a modal 
 
+in modal first there will be subject selector where subject will be populated from subjects table from data base 
 
+then lesson selector where lesson will be populated from lesson table from database 
 
-in lesson page top right side corner a button name Add Lesson 
+the topics name 
 
-on click add lesson button
-
-open modal and in modal first there will be a selector for Subject 
-
-first select subject 
-
-then lesson name 
-
-Lesson Number gt

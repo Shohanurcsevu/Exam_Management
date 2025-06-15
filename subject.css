@@ -64,11 +64,12 @@
 
 .subject-content {
     background-color: #fff;
-    padding: 0 20px 20px 20px;
+    padding: 0;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     border: 1px solid #ddd;
     border-top: none;
+    overflow-x: auto;
 }
 
 .subjects-table {
@@ -76,10 +77,10 @@
     border-collapse: collapse;
 }
 
-.subjects-table th,
+.subjects-table th, 
 .subjects-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
     text-align: left;
     vertical-align: middle;
 }
@@ -87,6 +88,10 @@
 .subjects-table th {
     background-color: #f2f2f2;
     font-weight: bold;
+}
+
+.subjects-table tr:last-of-type td {
+    border-bottom: none;
 }
 
 .action-btn {
@@ -123,12 +128,13 @@
 .page-btn.active { background-color: #4a80e3; color: white; border-color: #4a80e3; }
 .page-btn.disabled { cursor: not-allowed; color: #ccc; background-color: #f9f9f9; }
 
-/* Modern, Minimal Progress Bar Styles */
+/* Minimal Progress Bar Styles */
 .minimal-progress-container {
     background-color: #e9ecef;
     border-radius: 999px;
     height: 8px;
     width: 100%;
+    min-width: 100px;
     overflow: hidden;
 }
 
@@ -228,7 +234,6 @@
     cursor: pointer;
     font-size: 16px;
 }
-
 .save-btn:hover { background-color: #3b6ac8; }
 
 .delete-modal-content {
@@ -276,12 +281,58 @@
     background-color: #e0e0e0;
     color: #333;
 }
-
 .action-btn-cancel:hover { background-color: #c7c7c7; }
 
 .action-btn-delete {
     background-color: #f44336;
     color: white;
 }
-
 .action-btn-delete:hover { background-color: #da190b; }
+
+/* --- MOBILE RESPONSIVENESS FOR THIS PAGE --- */
+@media (max-width: 768px) {
+    .table-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    /* Responsive Table Transformation */
+    .subjects-table thead {
+        display: none;
+    }
+    .subjects-table, 
+    .subjects-table tbody, 
+    .subjects-table tr, 
+    .subjects-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .subjects-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .subjects-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+    .subjects-table td:last-child {
+        border-bottom: none;
+    }
+    .subjects-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+}

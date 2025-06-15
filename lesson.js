@@ -1,9 +1,11 @@
 // lesson.js
 
 function initializeLessonPage() {
-    // --- State Management and Selectors (no changes needed) ---
+    // --- State Management ---
     let currentPage = 1, currentSearch = '', currentSubjectId = '', debounceTimer;
     const limit = 10;
+
+    // --- Element Selectors ---
     const addEditModal = document.getElementById('addLessonModal');
     const deleteModal = document.getElementById('deleteConfirmModal');
     const addLessonBtn = document.querySelector('.add-lesson-btn');
@@ -20,129 +22,21 @@ function initializeLessonPage() {
     const searchInput = document.getElementById('searchLessons');
     const paginationControls = document.getElementById('pagination-controls');
 
-    // --- Toast, Debounce functions are unchanged ---
-    const showToast = (message, isSuccess = true) => { /* ... */ };
-    const debounce = (func, delay) => { /* ... */ };
-    
-    // --- Modal Handling ---
-    const openModalForCreate = () => { /* ... */ };
-    
-    const openModalForEdit = (lesson) => {
-        if (!addEditModal) return;
-        addLessonForm.reset();
-        lessonIdInput.value = lesson.id;
-        modalTitle.textContent = 'Edit Lesson';
-        document.getElementById('subjectSelect').value = lesson.subject_id;
-        document.getElementById('lessonName').value = lesson.lesson_name;
-        document.getElementById('lessonNumber').value = lesson.lesson_number;
-        document.getElementById('startPage').value = lesson.start_page;
-        document.getElementById('endPage').value = lesson.end_page;
-        document.getElementById('totalPastQuestions').value = lesson.total_past_questions;
-        document.getElementById('totalTopics').value = lesson.total_topics; // Set new field value
-        addEditModal.style.display = 'block';
-    };
-
-    const closeAddEditModal = () => { /* ... */ };
-    const closeDeleteModal = () => { /* ... */ };
-
-    // --- API Calls & Logic are unchanged ---
-    const populateSubjectDropdowns = async () => { /* ... */ };
-    const fetchLessons = async () => { /* ... */ };
-    const promptForDelete = (id) => { /* ... */ };
-    const executeDelete = async () => { /* ... */ };
-    
-    // --- Table Rendering ---
-    const renderTable = (lessons) => {
-        if (!lessonsTableBody) return;
-        lessonsTableBody.innerHTML = '';
-        if (lessons.length === 0) {
-            lessonsTableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No lessons match your criteria.</td></tr>'; // Colspan updated to 7
-            return;
-        }
-        lessons.forEach(lesson => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${lesson.lesson_name}</td>
-                <td>${lesson.lesson_number}</td>
-                <td>${lesson.subject_name}</td>
-                <td>${lesson.start_page} - ${lesson.end_page}</td>
-                <td>${lesson.total_past_questions}</td>
-                <td>${lesson.total_topics}</td>
-                <td>
-                    <button class="action-btn edit-btn">Edit</button>
-                    <button class="action-btn delete-btn">Delete</button>
-                </td>
-            `;
-            row.querySelector('.edit-btn').addEventListener('click', () => openModalForEdit(lesson));
-            row.querySelector('.delete-btn').addEventListener('click', () => promptForDelete(lesson.id));
-            lessonsTableBody.appendChild(row);
-        });
-    };
-
-    // --- Pagination rendering is unchanged ---
-    const renderPagination = (pagination) => { /* ... */ };
-
-    // --- Event Listeners ---
-    if(addLessonBtn) addLessonBtn.addEventListener('click', openModalForCreate);
-    // ... all other listeners are unchanged ...
-
-    if(addLessonForm) {
-        addLessonForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = {
-                lessonId: lessonIdInput.value,
-                subjectId: document.getElementById('subjectSelect').value,
-                lessonName: document.getElementById('lessonName').value,
-                lessonNumber: document.getElementById('lessonNumber').value,
-                startPage: document.getElementById('startPage').value,
-                endPage: document.getElementById('endPage').value,
-                totalPastQuestions: document.getElementById('totalPastQuestions').value,
-                totalTopics: document.getElementById('totalTopics').value, // Get new field value
-            };
-            // ... API fetch logic is unchanged ...
-            try {
-                const response = await fetch('api/lesson_api.php', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-                const result = await response.json();
-                showToast(result.message, result.status === 'success');
-                if (result.status === 'success') {
-                    closeAddEditModal();
-                    fetchLessons();
-                }
-            } catch (error) { showToast('An error occurred while saving the lesson.', false); }
-        });
-    }
-
-    // --- Initial Load ---
-    populateSubjectDropdowns();
-    fetchLessons();
-}
-
-// To make it easy, paste this full version which includes all the unchanged helper functions.
-function initializeLessonPage() {
-    let currentPage = 1, currentSearch = '', currentSubjectId = '', debounceTimer;
-    const limit = 10;
-    const addEditModal = document.getElementById('addLessonModal'), deleteModal = document.getElementById('deleteConfirmModal'),
-          addLessonBtn = document.querySelector('.add-lesson-btn'), addEditCloseBtn = addEditModal ? addEditModal.querySelector('.close-btn') : null,
-          deleteCloseBtn = deleteModal ? deleteModal.querySelector('.close-delete-btn') : null, addLessonForm = document.getElementById('addLessonForm'),
-          lessonsTableBody = document.getElementById('lessonsTableBody'), modalTitle = addEditModal ? addEditModal.querySelector('.modal-header h2') : null,
-          lessonIdInput = document.getElementById('lessonId'), confirmDeleteBtn = document.getElementById('confirmDeleteBtn'),
-          cancelDeleteBtn = document.getElementById('cancelDeleteBtn'), subjectFilter = document.getElementById('subjectFilter'),
-          subjectSelectInModal = document.getElementById('subjectSelect'), searchInput = document.getElementById('searchLessons'),
-          paginationControls = document.getElementById('pagination-controls');
-
+    // --- Toast Function ---
     const showToast = (message, isSuccess = true) => {
         Toastify({
             text: message, duration: 3000, close: true, gravity: "top", position: "right",
             backgroundColor: isSuccess ? "linear-gradient(to right, #00b09b, #96c93d)" : "linear-gradient(to right, #ff5f6d, #ffc371)",
         }).showToast();
     };
+
+    // --- Debounce function ---
     const debounce = (func, delay) => {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(func, delay);
     };
+    
+    // --- Modal Handling ---
     const openModalForCreate = () => {
         if (!addEditModal) return;
         addLessonForm.reset();
@@ -150,6 +44,7 @@ function initializeLessonPage() {
         modalTitle.textContent = 'Add New Lesson';
         addEditModal.style.display = 'block';
     };
+    
     const openModalForEdit = (lesson) => {
         if (!addEditModal) return;
         addLessonForm.reset();
@@ -164,8 +59,11 @@ function initializeLessonPage() {
         document.getElementById('totalTopics').value = lesson.total_topics;
         addEditModal.style.display = 'block';
     };
+
     const closeAddEditModal = () => { if (addEditModal) addEditModal.style.display = 'none'; };
     const closeDeleteModal = () => { if (deleteModal) deleteModal.style.display = 'none'; };
+
+    // --- API Calls & Logic ---
     const populateSubjectDropdowns = async () => {
         try {
             const response = await fetch('api/lesson_api.php?fetchSubjects=true');
@@ -182,6 +80,7 @@ function initializeLessonPage() {
             } else { showToast('Could not load subjects.', false); }
         } catch (error) { console.error("Dropdown fetch error:", error); showToast('Could not load subjects.', false); }
     };
+
     const fetchLessons = async () => {
         const url = `api/lesson_api.php?page=${currentPage}&limit=${limit}&search=${encodeURIComponent(currentSearch)}&subject_id=${currentSubjectId}`;
         try {
@@ -193,11 +92,13 @@ function initializeLessonPage() {
             } else { showToast(result.message, false); }
         } catch (error) { console.error("Fetch Error:", error); showToast('Failed to fetch lessons.', false); }
     };
+    
     const promptForDelete = (id) => {
         if (!deleteModal) return;
         confirmDeleteBtn.dataset.lessonId = id;
         deleteModal.style.display = 'block';
     };
+
     const executeDelete = async () => {
         const id = confirmDeleteBtn.dataset.lessonId;
         if (!id) return;
@@ -211,21 +112,37 @@ function initializeLessonPage() {
         } catch (error) { showToast('Failed to delete lesson.', false); }
         finally { closeDeleteModal(); }
     };
+    
+    // --- Rendering ---
     const renderTable = (lessons) => {
         if (!lessonsTableBody) return;
         lessonsTableBody.innerHTML = '';
         if (lessons.length === 0) {
-            lessonsTableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No lessons match your criteria.</td></tr>';
+            lessonsTableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 20px;">No lessons match your criteria.</td></tr>';
             return;
         }
         lessons.forEach(lesson => {
             const row = document.createElement('tr');
-            row.innerHTML = `<td>${lesson.lesson_name}</td><td>${lesson.lesson_number}</td><td>${lesson.subject_name}</td><td>${lesson.start_page} - ${lesson.end_page}</td><td>${lesson.total_past_questions}</td><td>${lesson.total_topics}</td><td><button class="action-btn edit-btn">Edit</button><button class="action-btn delete-btn">Delete</button></td>`;
+            row.innerHTML = `
+                <td data-label="Lesson Name"><span>${lesson.lesson_name}</span></td>
+                <td data-label="Lesson No."><span>${lesson.lesson_number}</span></td>
+                <td data-label="Subject"><span>${lesson.subject_name}</span></td>
+                <td data-label="Page Range"><span>${lesson.start_page} - ${lesson.end_page}</span></td>
+                <td data-label="Past Questions"><span>${lesson.total_past_questions}</span></td>
+                <td data-label="Total Topics"><span>${lesson.total_topics}</span></td>
+                <td data-label="Actions">
+                    <div class="action-btn-wrapper">
+                        <button class="action-btn edit-btn">Edit</button>
+                        <button class="action-btn delete-btn">Delete</button>
+                    </div>
+                </td>
+            `;
             row.querySelector('.edit-btn').addEventListener('click', () => openModalForEdit(lesson));
             row.querySelector('.delete-btn').addEventListener('click', () => promptForDelete(lesson.id));
             lessonsTableBody.appendChild(row);
         });
     };
+
     const renderPagination = (pagination) => {
         if (!paginationControls) return;
         paginationControls.innerHTML = '';
@@ -245,12 +162,15 @@ function initializeLessonPage() {
         }
         paginationControls.appendChild(createPageBtn('Next &raquo;', pagination.currentPage + 1, pagination.currentPage === pagination.totalPages));
     };
-    if (addLessonBtn) addLessonBtn.addEventListener('click', openModalForCreate);
-    if (addEditCloseBtn) addEditCloseBtn.addEventListener('click', closeAddEditModal);
-    if (deleteCloseBtn) deleteCloseBtn.addEventListener('click', closeDeleteModal);
-    if (cancelDeleteBtn) cancelDeleteBtn.addEventListener('click', closeDeleteModal);
-    if (confirmDeleteBtn) confirmDeleteBtn.addEventListener('click', executeDelete);
-    if (searchInput) {
+
+    // --- Event Listeners ---
+    if(addLessonBtn) addLessonBtn.addEventListener('click', openModalForCreate);
+    if(addEditCloseBtn) addEditCloseBtn.addEventListener('click', closeAddEditModal);
+    if(deleteCloseBtn) deleteCloseBtn.addEventListener('click', closeDeleteModal);
+    if(cancelDeleteBtn) cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+    if(confirmDeleteBtn) confirmDeleteBtn.addEventListener('click', executeDelete);
+    
+    if(searchInput) {
         searchInput.addEventListener('input', (e) => {
             debounce(() => {
                 currentSearch = e.target.value;
@@ -259,25 +179,32 @@ function initializeLessonPage() {
             }, 300);
         });
     }
-    if (subjectFilter) {
+
+    if(subjectFilter) {
         subjectFilter.addEventListener('change', (e) => {
             currentSubjectId = e.target.value;
             currentPage = 1;
             fetchLessons();
         });
     }
+
     window.addEventListener('click', (event) => {
         if (event.target == addEditModal) closeAddEditModal();
         if (event.target == deleteModal) closeDeleteModal();
     });
-    if (addLessonForm) {
+
+    if(addLessonForm) {
         addLessonForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             const formData = {
-                lessonId: lessonIdInput.value, subjectId: document.getElementById('subjectSelect').value,
-                lessonName: document.getElementById('lessonName').value, lessonNumber: document.getElementById('lessonNumber').value,
-                startPage: document.getElementById('startPage').value, endPage: document.getElementById('endPage').value,
-                totalPastQuestions: document.getElementById('totalPastQuestions').value, totalTopics: document.getElementById('totalTopics').value,
+                lessonId: lessonIdInput.value,
+                subjectId: document.getElementById('subjectSelect').value,
+                lessonName: document.getElementById('lessonName').value,
+                lessonNumber: document.getElementById('lessonNumber').value,
+                startPage: document.getElementById('startPage').value,
+                endPage: document.getElementById('endPage').value,
+                totalPastQuestions: document.getElementById('totalPastQuestions').value,
+                totalTopics: document.getElementById('totalTopics').value,
             };
             try {
                 const response = await fetch('api/lesson_api.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
@@ -290,7 +217,10 @@ function initializeLessonPage() {
             } catch (error) { showToast('An error occurred while saving the lesson.', false); }
         });
     }
+
+    // --- Initial Load ---
     populateSubjectDropdowns();
     fetchLessons();
 }
+
 initializeLessonPage();

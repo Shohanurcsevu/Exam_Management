@@ -13,6 +13,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <h2>Admin Panel</h2>
+                <span class="material-icons sidebar-close-btn">close</span>
             </div>
             <nav class="sidebar-nav">
                 <ul>
@@ -30,12 +31,8 @@
 
         <main class="main-content">
             <header class="header">
-                <div class="header-menu-toggle">
-                    <span class="material-icons">menu</span>
-                </div>
-                <div class="header-user">
-                    <span class="material-icons">notifications</span>
-                </div>
+                <div class="header-menu-toggle"><span class="material-icons">menu</span></div>
+                <div class="header-user"><span class="material-icons">notifications</span></div>
             </header>
 
             <section class="content" id="main-content-area">
@@ -48,48 +45,16 @@
                     </div>
                 </div>
                 <div class="cards-container">
-                    <div class="card">
-                        <div class="card-icon"><span class="material-icons">class</span></div>
-                        <div class="card-info">
-                            <h3 id="total-subjects">0</h3>
-                            <p>Total Subjects</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon"><span class="material-icons">library_books</span></div>
-                        <div class="card-info">
-                            <h3 id="total-lessons">0</h3>
-                            <p>Total Lessons</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon"><span class="material-icons">check_circle</span></div>
-                        <div class="card-info">
-                            <h3 id="active-exams">0</h3>
-                            <p>Active Exams</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon"><span class="material-icons">group_add</span></div>
-                        <div class="card-info">
-                            <h3 id="students-enrolled">0</h3>
-                            <p>Students Enrolled</p>
-                        </div>
-                    </div>
+                    <div class="card"><div class="card-icon"><span class="material-icons">class</span></div><div class="card-info"><h3 id="total-subjects">0</h3><p>Total Subjects</p></div></div>
+                    <div class="card"><div class="card-icon"><span class="material-icons">library_books</span></div><div class="card-info"><h3 id="total-lessons">0</h3><p>Total Lessons</p></div></div>
+                    <div class="card"><div class="card-icon"><span class="material-icons">check_circle</span></div><div class="card-info"><h3 id="active-exams">0</h3><p>Active Exams</p></div></div>
+                    <div class="card"><div class="card-icon"><span class="material-icons">group_add</span></div><div class="card-info"><h3 id="students-enrolled">0</h3><p>Students Enrolled</p></div></div>
                 </div>
                 <div class="recent-activity">
                     <h3>Recent Activity</h3>
-                    <table id="activity-table">
-                        <thead>
-                            <tr>
-                                <th>Student Name</th>
-                                <th>Exam Name</th>
-                                <th>Status</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            </tbody>
+                    <table class="responsive-table" id="activity-table">
+                        <thead><tr><th>Student Name</th><th>Exam Name</th><th>Status</th><th>Score</th></tr></thead>
+                        <tbody></tbody>
                     </table>
                 </div>
             </section>

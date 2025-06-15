@@ -3,9 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Mobile Sidebar Toggle Logic ---
     const menuToggle = document.querySelector('.header-menu-toggle');
     const sidebar = document.querySelector('.sidebar');
+    const sidebarCloseBtn = document.querySelector('.sidebar-close-btn');
+
     if (menuToggle && sidebar) {
         menuToggle.addEventListener('click', function() {
             sidebar.classList.toggle('sidebar-visible');
+        });
+    }
+
+    if (sidebarCloseBtn && sidebar) {
+        sidebarCloseBtn.addEventListener('click', function() {
+            sidebar.classList.remove('sidebar-visible');
         });
     }
 
@@ -23,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     shortcutHint.style.display = hasValue ? 'none' : 'inline-block';
                 }
             });
-
             clearSearchIcon.addEventListener('click', function() {
                 searchInput.value = '';
                 searchInput.dispatchEvent(new Event('input'));
@@ -37,17 +44,13 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch('api/dashboard_api.php');
             const result = await response.json();
-
             if (result.status === 'success' && result.data) {
-                // Get all card elements by their IDs
                 const totalSubjectsEl = document.getElementById('total-subjects');
-                const totalLessonsEl = document.getElementById('total-lessons'); // New element
+                const totalLessonsEl = document.getElementById('total-lessons');
                 const activeExamsEl = document.getElementById('active-exams');
                 const studentsEnrolledEl = document.getElementById('students-enrolled');
-
-                // Update the text content of the card elements
                 if (totalSubjectsEl) totalSubjectsEl.textContent = result.data.total_subjects;
-                if (totalLessonsEl) totalLessonsEl.textContent = result.data.total_lessons; // Update lessons card
+                if (totalLessonsEl) totalLessonsEl.textContent = result.data.total_lessons;
                 if (activeExamsEl) activeExamsEl.textContent = result.data.active_exams;
                 if (studentsEnrolledEl) studentsEnrolledEl.textContent = result.data.students_enrolled;
             }
@@ -80,13 +83,9 @@ document.addEventListener('DOMContentLoaded', function() {
     async function loadPage(url) {
         try {
             const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const content = await response.text();
             mainContentArea.innerHTML = content;
-
-            // Execute scripts from the loaded content
             const scripts = mainContentArea.querySelectorAll('script');
             for (const script of scripts) {
                 const newScript = document.createElement('script');
@@ -117,17 +116,15 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(event) {
             event.preventDefault();
             const navId = this.parentElement.id; 
-            
             if (navId === 'nav-dashboard') {
                 mainContentArea.innerHTML = defaultPageContent;
                 initializeSearch(); 
-                fetchDashboardStats(); // Fetch stats when returning to dashboard
+                fetchDashboardStats(); 
             } else if (navId === 'nav-subject') {
                 loadPage('subject.html');
             } else if (navId === 'nav-lesson') {
                 loadPage('lesson.html');
             }
-            
             setActiveLink(this);
         });
     });
